@@ -1,5 +1,26 @@
-$(document).ready(function(){
+$(document).ready(function() {
     runMe();
+    $('.submit-btn1').click(function() {
+        var data = $('.inp1').parents('form')[0];
+        console.log(data);
+        console.log(reader);
+        data = reader.result;
+        //var data = 'data=qweqweqwe&resp=ewrwerwe';
+        var url = '/upload';
+        var dataType = 'json';
+        var success = function sucessCallback(res) {
+            console.log(res);
+        }
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            contentType :"multipart/form-data",
+            success: success,
+            dataType: dataType
+        });
+        return false;
+    });
 });
 
 function runMe(){
@@ -26,7 +47,7 @@ function runMe(){
             var file =_inp[0].value;
         }
 
-        var reader = new FileReader();
+        reader = new FileReader();
         reader.onload = function(e) {
             $('<img>').attr('src', e.target.result).appendTo('body');
             img.src = e.target.result;
